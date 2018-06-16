@@ -1,3 +1,4 @@
+#!/usr/bin/env amm
 import $ivy.`com.danielasfregola::twitter4s:5.3`
 import ammonite.ops._
 import com.danielasfregola.twitter4s.TwitterRestClient
@@ -14,16 +15,17 @@ val mediaExtensionRegex = """^.+\.(\w+)$""".r
 
 @main def favorites(screenName: String, count: Int, outDir: Path) = {
   require(outDir.isDir, s"$outDir is not a directory.")
-  val ratedResult = Await.result(restClient.favoriteStatusesForUser(screenName), Duration.Inf)
+  val ratedResult = Await.result(restClient.favoriteStatusesForUser(screenName, count), Duration.Inf)
   for {
     tweet          <- ratedResult.data
     entity         <- {println(describeTweet(tweet)); tweet.extended_entities.toSeq}
     (media, index) <- entity.media.zipWithIndex
     url            =  {println(media.media_url_https); media.media_url_https}
     extension      =  mediaExtensionRegex.findFirstMatchIn(url).map(_.group(1)).getOrElse("")
+    outputFileName =  s"${tweet.id}-$index.$extension"
+    outputPath     =  outDir/outputFileName if !exists(outputPath)
     body           =  Http(url).asBytes.body
-    fileName       =  s"${tweet.id}-$index.$extension"
-  } write.over(outDir/fileName, body)
+  } write.over(outputPath, body)
 }
 
 private def describeTweet(tweet: Tweet): String = {
