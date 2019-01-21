@@ -1,4 +1,3 @@
-#!/usr/bin/env amm
 import $ivy.`com.danielasfregola::twitter4s:5.3`
 import ammonite.ops._
 import com.danielasfregola.twitter4s.TwitterRestClient
@@ -6,7 +5,6 @@ import com.danielasfregola.twitter4s.entities.Tweet
 import scalaj.http.Http
 
 import scala.concurrent.Await
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration.Duration
 
 val restClient = TwitterRestClient()

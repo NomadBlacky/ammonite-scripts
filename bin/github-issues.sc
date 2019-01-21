@@ -1,4 +1,3 @@
-import $ivy.`org.scalaj::scalaj-http:2.3.0`
 import $ivy.`com.typesafe.play::play-json:2.6.7`
 
 import scalaj.http._

@@ -1,11 +1,9 @@
-import $ivy.`org.scalaj::scalaj-http:2.3.0`
-import scalaj.http._
-import $ivy.`org.scala-lang.modules::scala-swing:2.0.3`
-
-import scala.swing._
 import $ivy.`com.lihaoyi::ujson:0.6.5`
+import $ivy.`org.scala-lang.modules::scala-swing:2.0.3`
+import scalaj.http._
 
 import scala.swing.BorderPanel.Position
+import scala.swing.{BorderPanel, Label, MainFrame}
 
 val key   = sys.env("TRELLO_API_KEY")
 val token = sys.env("TRELLO_API_TOKEN")
